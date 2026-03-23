@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Satu Hari Spesial Untukmu ❤️</title>
+    <style>
+        :root {
+            --ios-pink: #ff2d55;
+            --ios-pink-dark: #d81b40;
+            --glass-bg: rgba(255, 255, 255, 0.96);
+            --font-main: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            margin: 0; padding: 0;
+            font-family: var(--font-main);
+            background: #000;
+            height: 100dvh; width: 100vw;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden;
+        }
+
+        .aura-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 50%, #ffafbd 100%);
+            background-size: 400% 400%;
+            animation: auraShift 15s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes auraShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        #particleCanvas { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            z-index: 2; pointer-events: none; 
+        }
+
+        .master-card {
+            width: 92%; max-width: 450px;
+            max-height: 85vh;
+            background: var(--glass-bg);
+            backdrop-filter: blur(50px) saturate(200%); -webkit-backdrop-filter: blur(50px) saturate(200%);
+            border-radius: 40px; padding: 40px 25px;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            text-align: center; z-index: 10; position: relative;
+            overflow-y: auto; scrollbar-width: none;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .master-card::-webkit-scrollbar { display: none; }
+
+        .slide { display: none; width: 100%; }
+        .active { display: block; animation: slideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        @keyframes slideIn {
+            0% { opacity: 0; transform: translateY(15px); filter: blur(10px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        h1 { font-weight: 800; font-size: 26px; color: var(--ios-pink); margin-bottom: 10px; letter-spacing: -0.8px; }
+
+        .long-text {
+            text-align: justify;
+            text-justify: inter-word;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 22px; border-radius: 25px;
+            font-size: 15px; color: #1c1c1e; margin: 15px 0;
+            line-height: 1.8; border: 1px solid rgba(255, 45, 85, 0.08);
+        }
+
+        .photo-frame {
+            width: 150px; height: 150px; border-radius: 40px; object-fit: cover;
+            margin: 0 auto 20px; border: 4px solid #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+        .ios-input {
+            width: 100%; padding: 16px; border-radius: 15px; border: none;
+            background: rgba(0,0,0,0.05); font-size: 22px; text-align: center;
+            margin-bottom: 15px; outline: none; color: var(--ios-pink); font-weight: 700;
+        }
+
+        .ios-btn {
+            background: linear-gradient(180deg, var(--ios-pink), var(--ios-pink-dark));
+            color: white; border: none; padding: 18px;
+            border-radius: 18px; font-size: 16px; font-weight: 700; width: 100%;
+            cursor: pointer; transition: 0.3s;
+        }
+
+        .music-toggle {
+            position: fixed; top: 20px; right: 20px; z-index: 100;
+            background: rgba(255,255,255,0.7); width: 45px; height: 45px;
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            cursor: pointer; backdrop-filter: blur(10px); border: 1px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); font-size: 20px;
+        }
+
+        .sparkle {
+            position: absolute; pointer-events: none; animation: flyUp 5s linear forwards;
+            filter: drop-shadow(0 0 5px rgba(255,45,85,0.4));
+            color: #ff2d55;
+        }
+        
+        @keyframes flyUp {
+            0% { transform: translateY(110vh) rotate(0deg) scale(0.3); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-20vh) rotate(720deg) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body onload="startLoveRain()">
+
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://docs.google.com/uc?export=download&id=19vHk5aY73yRgD-ldZECt3HfymefV0-gW" type="audio/mpeg">
+    </audio>
+
+    <div class="music-toggle" onclick="toggleMusic()" id="mBtn">🔇</div>
+    <div class="aura-bg"></div>
+    <div id="particleCanvas"></div>
+
+    <div class="master-card" id="scrollRef">
+        
+        <div class="slide active" id="s1">
+            <h1 style="font-size: 22px;">Satu Ruang Untukmu</h1>
+            <p style="color: #666; font-size: 13px; margin-bottom: 20px;">Masukkan tanggal spesial kita untuk memulai kejutan ini ❤️</p>
+            <input type="password" id="pinInput" class="ios-input" placeholder="••••••" maxlength="6">
+            <button class="ios-btn" onclick="cekPin()">Buka Sekarang</button>
+        </div>
+
+        <div class="slide" id="s2">
+            <h1>Halo Sayang ✨</h1>
+            <p style="color: #666; margin-bottom: 15px; font-size: 14px;">Pilih satu foto terindahmu yang paling kamu sukai.</p>
+            <div style="border: 2px dashed var(--ios-pink); padding: 35px; border-radius: 30px; cursor: pointer; background: #fff;" onclick="document.getElementById('fileIn').click()">
+                <span id="labelIn" style="color: var(--ios-pink); font-weight: 700; font-size: 15px;">Ketuk Untuk Memilih Foto 📸</span>
+                <input type="file" id="fileIn" accept="image/*" style="display:none" onchange="handleFile(this)">
+            </div>
+            <img id="prev" class="photo-frame" style="display:none; margin-top: 20px;">
+            <button class="ios-btn" id="next2" onclick="go(3)" disabled style="margin-top: 20px;">Lanjutkan Cerita</button>
+        </div>
+
+        <div class="slide" id="s3">
+            <h1>Awal Cerita 🕰️</h1>
+            <div class="long-text">
+                Jika diingat-ingat kembali, awal pertemuan kita adalah hal paling ajaib yang pernah aku alami dalam hidup ini. Aku tidak pernah menyangka bahwa sosok sepertimu akan menjadi pusat dari seluruh semestaku hari ini. Dari yang awalnya tidak saling mengenal, sekarang kamu menjadi satu-satunya alasan aku untuk selalu tersenyum setiap kali membuka mata. Terima kasih sudah mampir dan memutuskan untuk menetap selamanya.
+            </div>
+            <button class="ios-btn" onclick="go(4)">Selanjutnya</button>
+        </div>
+
+        <div class="slide" id="s4">
+            <h1>Kenapa Kamu? ✨</h1>
+            <div class="long-text">
+                Bukan karena kamu sempurna tanpa cela sedikit pun, tetapi karena kamu adalah satu-satunya manusia yang bisa membuatku merasa benar-benar telah menemukan jalan pulang. Aku menyayangi setiap detail kecil darimu; caramu tertawa dengan lebar, caramu mendengarkan cerita tidak pentingku, hingga caramu bersabar menghadapi egoku. Kamu sangat berharga, lebih dari sekadar rangkaian kalimat yang sanggup aku tuliskan di sini.
+            </div>
+            <button class="ios-btn" onclick="go(5)">Selanjutnya</button>
+        </div>
+
+        <div class="slide" id="s5">
+            <h1>Happy Birthday 🎂</h1>
+            <img id="img5" class="photo-frame">
+            <p style="font-weight: 600; font-size: 15px; padding: 0 5px; line-height: 1.5;">Yeay selamat bertambah usia sayang, ini adalah kejutan kecil dariku untuk merayakan hari kelahiranmu hihi.</p>
+            <button class="ios-btn" onclick="go(6)">Nyalakan Lilin</button>
+        </div>
+
+        <div class="slide" id="s6">
+            <h1>Make a Wish ✨</h1>
+            <div class="long-text" style="text-align: center; margin-bottom: 20px;">
+                <p style="font-style: italic; font-size: 14px; color: #444; margin-bottom: 15px;">"Pejamkan matamu sejenak, tarik napas dalam-dalam, dan mintalah semua hal paling indah kepada semesta untuk hidupmu..."</p>
+                <div id="candle" onclick="tiup()" style="font-size: 80px; cursor: pointer; transition: 0.3s; margin: 10px 0;">🕯️</div>
+                <p id="wishTeks" style="font-weight: 700; color: var(--ios-pink); font-size: 14px; margin-top: 10px;">Ketuk lilin untuk meniupnya.</p>
+            </div>
+            <button class="ios-btn" id="next6" style="display:none" onclick="go(7)">Aamiin, Sudah Berdoa</button>
+        </div>
+
+        <div class="slide" id="s7">
+            <h1>Masa Depan 🔜</h1>
+            <div class="long-text">
+                Aku ndak cuma ingin merayakan ulang tahunmu hari ini… tapi juga setiap ulang tahunmu di tahun-tahun mendatang nanti. Aku ingin ada di setiap langkah kecil dan besar yang akan kamu lewati, dan menyaksikan semua cerita hebat yang kamu tulis dalam hidupmu.
+Di dunia yang kadang terasa terlalu bising dan melelahkan ini, aku ingin kita tetap saling menguatkan, ndak peduli seberapa keras anginnya. Aku ingin jadi tempatmu pulang, dan juga jadi orang yang selalu percaya padamu, bahkan saat kamu ragu pada dirimu sendiri.
+Aku akan selalu jadi orang yang bertepuk tangan paling keras untuk setiap pencapaianmu, sekecil apa pun itu. Karena bagiku, kamu selalu luar biasa.
+            </div>
+            <button class="ios-btn" onclick="go(8)">Buka Surat Cinta</button>
+        </div>
+
+        <div class="slide" id="s8">
+            <h1>Untukmu... 💌</h1>
+            <div class="long-text">
+                Selamat ulang tahun sayangkuhh… manusia terbaik yang pernah hadir di hidupku ❤️. Hari ini mungkin cuma satu hari dari sekian banyak hari yang akan kamu lewati, tapi buat aku, hari ini adalah alasan kenapa dunia terasa sedikit lebih baik, karena di hari inilah kamu lahir, dan suatu saat nanti, tanpa aku sadari, kamu juga hadir di hidupku dan mengubah semuanya. Aku doain semoga kamu selalu dikelilingi oleh orang-orang baik, hal-hal baik, dan kabar-kabar baik. Semoga setiap langkahmu dimudahkan, setiap jalan yang kamu pilih dipenuhi keberkahan, dan setiap impian yang kamu simpan perlahan didekatkan sampai akhirnya bisa kamu raih. <br><br>
+                Semoga kamu selalu diberi kesehatan, umur yang panjang, hati yang tenang, dan kekuatan untuk menghadapi dunia yang kadang terasa berat ini. Aku berharap kamu lebih banyak tertawa daripada menangis, lebih banyak bahagia daripada kecewa, dan selalu menemukan alasan untuk tetap bertahan, bahkan di hari-hari yang paling sulit sekalipun. Dan untuk semua doa yang bahkan belum sempat kamu ucapkan dengan kata-kata, semoga Tuhan mendengarnya dan mengabulkannya dengan cara yang paling indah. Kalau boleh jujur, aku masih sering takut kehilangan kamu, takut suatu hari nanti aku ndak bisa lagi ada di sampingmu seperti sekarang. Maaf kalau selama ini aku masih belum jadi yang terbaik untukmu, masih banyak kurangnya, dan masih sering bikin kamu kecewa tanpa aku sadari, tapi satu hal yang selalu pasti, aku sayang banget sama kamu.<br><br>
+                Terima kasih sudah bertahan sejauh ini, terima kasih sudah tetap memilih aku di antara banyak hal yang mungkin lebih mudah daripada tetap di sini. Kamu itu rumah buat aku, tempat aku pulang setelah capek sama dunia. Jadi kalau suatu hari nanti dunia terasa terlalu berat buat kamu, ingat ya kamu ndak sendirian, ada aku yang akan tetap di sini, genggam kamu lebih erat, dan ndak akan pergi. Aku mencintaimu lebih dari yang bisa aku jelaskan, lebih dari yang bisa aku tunjukkan, dan mungkin lebih dari yang bisa kamu bayangkan. Dan di setiap ulang tahunmu nanti, aku selalu ingin jadi orang yang ada di sampingmu, merayakan kamu, memeluk kamu, dan mengingatkan lagi betapa berharganya kamu di hidupku 🤍. <br><br>
+
+            </div>
+            <button class="ios-btn" onclick="go(9)">Terakhir Dari Aku</button>
+        </div>
+
+        <div class="slide" id="s9">
+            <div style="font-size: 80px; margin-bottom: 15px;">🤟</div>
+            <h1 style="font-size: 34px;">I LOVE YOU SAYANG </h1>
+            <p style="color: var(--ios-pink); font-weight: 800; font-size: 18px;">Selamanya dan Seterusnya</p>
+            <p style="font-size: 12px; opacity: 0.6; margin-top: 20px;">(Terima kasih sudah lahir ke dunia ini ❤️)</p>
+        </div>
+    </div>
+
+    <script>
+        const PIN_BENAR = "170823"; 
+        const music = document.getElementById('bgMusic');
+        const mBtn = document.getElementById('mBtn');
+
+        function startLoveRain() {
+            setInterval(createSparkle, 100);
+        }
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                mBtn.innerHTML = "🎵";
+            } else {
+                music.pause();
+                mBtn.innerHTML = "🔇";
+            }
+        }
+
+        function cekPin() {
+            const input = document.getElementById('pinInput').value;
+            if(input === PIN_BENAR) {
+                // Memastikan musik diputar saat tombol diklik (interaksi pengguna)
+                music.play().then(() => {
+                    mBtn.innerHTML = "🎵";
+                }).catch(error => {
+                    console.log("Audio play blocked by browser, waiting for user interaction.");
+                });
+                
+                go(2);
+                for(let i=0; i<40; i++) setTimeout(createSparkle, i*30);
+            } else {
+                alert("Kata sandi salah sayang, coba ingat kembali tanggal spesial kita ❤️");
+                document.getElementById('pinInput').value = "";
+            }
+        }
+
+        function go(n) {
+            document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+            document.getElementById('s' + n).classList.add('active');
+            document.getElementById('scrollRef').scrollTop = 0;
+        }
+
+        function handleFile(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const url = e.target.result;
+                    document.getElementById('prev').src = url;
+                    document.getElementById('prev').style.display = 'block';
+                    document.getElementById('img5').src = url;
+                    document.getElementById('labelIn').innerText = "Kamuuu Cantikkkk Sekaliiii ✨";
+                    document.getElementById('next2').disabled = false;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function tiup() {
+            document.getElementById('candle').innerHTML = "🤲🏻";
+            document.getElementById('wishTeks').innerHTML = "Aamiin❤️<br>Semoga semesta mengabulkan semua doamu.";
+            document.getElementById('next6').style.display = 'block';
+            for(let i=0; i<60; i++) setTimeout(createSparkle, i*20);
+        }
+
+        function createSparkle() {
+            const area = document.getElementById('particleCanvas');
+            const s = document.createElement('div');
+            s.classList.add('sparkle');
+            
+            const icons = ['❤️', '💖', '💗', '💓', '💕', '❣', '✨'];
+            s.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+            
+            s.style.left = Math.random() * 100 + "vw";
+            s.style.fontSize = (Math.random() * 20 + 15) + "px";
+            s.style.animationDuration = (Math.random() * 3 + 3) + "s";
+            s.style.opacity = Math.random() * 0.8 + 0.2;
+            
+            const colors = ['#ff2d55', '#ff758c', '#ff9a9e', '#d81b40'];
+            s.style.color = colors[Math.floor(Math.random() * colors.length)];
+
+            area.appendChild(s);
+            setTimeout(() => s.remove(), 6000);
+        }
+    </script>
+</body>
+</html>
